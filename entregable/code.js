@@ -34,6 +34,7 @@ cambiarTema.addEventListener("click", alternarColorTema);
 /* --------------------------- NO TOCAR HASTA ACÁ --------------------------- */
 
 function obtenerDatosDelUsuario() {
+  /* --------------- PUNTO 1: Escribe tu codigo a partir de aqui --------------- */
   datosPersona.nombre = prompt('Ingrese su nombre:');
   datosPersona.edad = (2023 - (parseInt(prompt('Ingrese el año de su nacimiento:'))));
   datosPersona.ciudad = prompt('Ingrese la ciudad donde vive:');
@@ -41,7 +42,9 @@ function obtenerDatosDelUsuario() {
 }
 
 function renderizarDatosUsuario() {
+  /* ------------------- NO TOCAR NI ELIMINAR ESTA FUNCION. ------------------- */
   obtenerDatosDelUsuario();
+  /* --------------- PUNTO 2: Escribe tu codigo a partir de aqui --------------- */
   let nombre = document.querySelector('#nombre');
   let edad = document.querySelector('#edad');
   let ciudad = document.querySelector('#ciudad');
@@ -53,6 +56,7 @@ function renderizarDatosUsuario() {
 }
 
 function recorrerListadoYRenderizarTarjetas() {
+  /* ------------------ PUNTO 3: Escribe tu codigo desde aqui ------------------ */
   const tarjeta = document.querySelector('#fila');
   if (tarjeta.childElementCount < 1) {
     listado.forEach( element => {
@@ -69,10 +73,12 @@ function recorrerListadoYRenderizarTarjetas() {
 }
 
 function alternarColorTema() {
+  /* --------------------- PUNTO 4: Escribe tu codigo aqui --------------------- */
   const sitio = document.querySelector('#sitio');
   sitio.classList.toggle("dark");
 }
 
+/* --------------------- PUNTO 5: Escribe tu codigo aqui --------------------- */
 document.addEventListener('keypress', function(e) {
   if (e.key === "f") {
     const sobreMi = document.querySelector('#sobre-mi');
