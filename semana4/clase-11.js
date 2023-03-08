@@ -2,8 +2,9 @@
 /*               [1] FUNCION: capturar los datos del formulario               */
 /* -------------------------------------------------------------------------- */
 function capturarDatosFormulario() {
+
     // 👇 establecemos un objeto vacío para despues rellenarlo
-    const obejetoInformacion = {
+    const objetoInformacion = {
         nombre: "",
         password: "",
         telefono: "",
@@ -19,25 +20,26 @@ function capturarDatosFormulario() {
     const nacionalidad = document.querySelectorAll('[name=nacionalidad]');
 
     // 👇 rellenamos el objeto con la info correspondiente
-    obejetoInformacion.nombre = nom.value;
-    obejetoInformacion.password = pass.value;
-    obejetoInformacion.telefono = tel.value;
+    objetoInformacion.nombre = nom.value;
+    objetoInformacion.password = pass.value;
+    objetoInformacion.telefono = tel.value;
+    
     // recorremos los checkbox
     hobbies.forEach(hobbie => {
         // cada hobbie seleccionado lo sumamos al listado
         if (hobbie.checked) {
-            obejetoInformacion.hobbies.push(hobbie.id)
+            objetoInformacion.hobbies.push(hobbie.id)
         }
     });
     // recorremos los radio
     nacionalidad.forEach(nacion => {
         // la nacionalidad seleccionada es la que se guarda en el objeto
         if (nacion.checked) {
-            obejetoInformacion.nacionalidad = nacion.id;
+            objetoInformacion.nacionalidad = nacion.id;
         }
     })
 
-    return obejetoInformacion;
+    return objetoInformacion;
 };
 
 /* -------------------------------------------------------------------------- */
@@ -75,7 +77,7 @@ form.addEventListener('submit', function (evento) {
 /*                         [3] FUNCION: validar datos                         */
 /* -------------------------------------------------------------------------- */
 // Desarrollar la funcion 3 de validar los datos.
-// Esta funcion va a recibir un objeto con la misma estructura de obejetoInformacion
+// Esta funcion va a recibir un objeto con la misma estructura de objetoInformacion
 // Entonces dentro de esta función vamos a chequear ciertas validaciones.
 // 1- La funcion devuelve un listado de errores según las comprobaciones que hace sobre el objeto.
 // 2- Si el nombre no es un texto y tiene menos de 3 caracteres sumar el error: "El nombre debe tener al menos 3 caracteres."
@@ -86,6 +88,22 @@ form.addEventListener('submit', function (evento) {
 function validarInformacion(usuario) {
     let errores = [];
     // 👇 desarrollar aqui la funcion
+    if ((!isNaN(usuario.nombre)) || usuario.nombre.length < 3 ) {
+        errores.push("El nombre debe tener al menos 3 caracteres.");
+    }
+    if (usuario.password.trim().length < 6 ) {
+        errores.push("La contraseña debe tener al menos 6 caracteres, entre letras y símbolos.");
+    }
+    if (usuario.telefono.length < 10 ) {
+        errores.push("No es un teléfono válido.");
+    }
+    if (usuario.hobbies.length > 4 ) {
+        errores.push("Sólo es posible seleccionar 4 hobbies.");
+    }
+    if (usuario.nacionalidad == "") {
+        errores.push("Sólo es posible seleccionar 4 hobbies.");
+    }
 
     return errores;
 }
+
