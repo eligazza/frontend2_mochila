@@ -19,7 +19,6 @@ function renderizarErrores(listado) {
         listado.forEach(error => {
             divTemplate.innerHTML += `<p><small>${error}</small></p>`
         });
-
         form.appendChild(divTemplate);
     }
 }
@@ -38,4 +37,22 @@ function renderizarErrores(listado) {
 
 function mostrarMensajeExito(listado) {
     //   desarrollar la funcion aqui
-}
+    if (listado.length === 0) {
+        const divTemplate = document.createElement('div');
+        divTemplate.setAttribute('id', 'confirmacion');
+        divTemplate.style = "background:rgba(93, 243, 33, 0.2);padding:.5em 1em;color: green;margin: .5em 0;";
+        divTemplate.innerHTML += `<p><small>¡Formulario completado con éxito!</small></p>`
+        form.appendChild(divTemplate);
+        
+        const button = document.querySelector('button');
+        button.disabled = true;
+
+        const cajaConfirmacion = document.querySelector('#confirmacion');
+        setTimeout(() => {
+            cajaConfirmacion.remove();
+            button.disabled = false;
+            const formulario = document.querySelector('form');
+            formulario.reset();
+           }, 4000);
+        }
+    }
