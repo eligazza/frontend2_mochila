@@ -12,7 +12,7 @@ Este proyecto es la oportunidad de repasar todo lo aprendido y poner en práctic
 
 ## API Docs
 Link con la documentación de los endpoints de la API y su funcionamiento:
-👉 https://todo-api.ctd.academy/#/users/registerUser
+👉 https://todo-api.ctd.academy/#/
     
 
 ## Requerimientos funcionales en pantalla de Login
