@@ -26,9 +26,10 @@ window.addEventListener('load', function () {
                 },
                 "body": JSON.stringify(objeto),
             }
-            console.log(carga);
+            
             realizarLogin(carga);
-
+            
+            form.reset();
         }
     });
 
@@ -37,8 +38,14 @@ window.addEventListener('load', function () {
     function realizarLogin(param) {
         
         fetch(URL, param)
-            .then(res => res.json())
-            .then(data => localStorage.setItem("token",data.jwt))
+            .then(res => {
+                if(!res.ok) {alert("Error al intentar login, algunos datos son incorrectos")}
+                return res.json();
+            })
+            .then(data => {
+                localStorage.setItem("token",data.jwt);
+                location.replace("./mis-tareas.html");
+            })
             .catch(error => console.log(error))
         
     };
