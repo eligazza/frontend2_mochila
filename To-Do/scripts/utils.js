@@ -1,6 +1,7 @@
 /* ---------------------------------- texto --------------------------------- */
 function validarTexto(texto) {
-    return true;
+    let regex = /^[a-zA-Z]+$/;
+    return regex.test(texto);
 }
 
 function normalizarTexto(texto) {

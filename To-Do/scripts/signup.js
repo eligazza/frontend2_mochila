@@ -8,24 +8,42 @@ window.addEventListener('load', function () {
     const email = this.document.querySelector("#inputEmail");
     const contrasenia = this.document.querySelector("#inputPassword");
     const contraseniaRepetida = this.document.querySelector("#inputPasswordRepetida");
+    // obtenemos lugares donde irian los errores
+    const errorNombre = this.document.querySelector("#errorNombre");
+    const errorApellido = this.document.querySelector("#errorApellido");
+    const errorEmail = this.document.querySelector("#errorEmail");
+    const errorPassword = this.document.querySelector("#errorPassword");
+    const errorPasswordRepetida = this.document.querySelector("#errorPasswordRepetida");
+
+    function mostrarError(elemento, error) {
+        elemento.setAttribute('id', 'errores');
+        elemento.style = 'color: red; margin-bottom: 2rem';
+        elemento.innerText = error;
+    }
 
     /* -------------------------------------------------------------------------- */
     /*            FUNCIÓN 1: Escuchamos el submit y preparamos el envío           */
     /* -------------------------------------------------------------------------- */
     form.addEventListener('submit', function (event) {
         event.preventDefault();
-        // function aniadirError(elemento, error) {
-        //     //creo el elemento
-        //     let mensaje = document.createElement('p');
-        //     // le agrego el mensaje de error
-        //     mensaje.innerText = error;
-        // }
+                
+        if (!validarTexto(nombre.value)) {
+            mostrarError(errorNombre, "Utilice solo letras");
+        }
+        if (!validarTexto(apellido.value)) {
+            mostrarError(errorApellido, "Utilice solo letras");
+        }
+        if (!validarEmail(email.value)) {
+            mostrarError(errorEmail, "No escribió un email válido");
+        }
+        if (!validarContrasenia(contrasenia.value)) {
+            mostrarError(errorPassword, "Debe contener 8 caracteres, una minúscula, una mayúscula y un número");
+        }
+        if (!compararContrasenias(contrasenia.value, contraseniaRepetida.value)) {
+            mostrarError(errorPasswordRepetida, "Las contraseñas no coinciden");
+        }
         
-        if (validarTexto(nombre.value)) {console.log("Valido nombre")} else {console.log("No valido nombre")}
-        if (validarTexto(apellido.value)) {console.log("Valido apellido")} else {console.log("No valido apellido")}
-        if (validarEmail(email.value)) {console.log("Valido email")} else {console.log("No valido email")}
-        if (validarContrasenia(contrasenia.value)) {console.log("Valido contraseña")} else {console.log("No valido contraseña")}
-        if (compararContrasenias(contrasenia.value, contraseniaRepetida.value)) {console.log("Contraseñas iguales")} else {console.log(`${contrasenia.value} y ${contraseniaRepetida.value} no son iguales`)}
+        
         if( validarTexto(nombre.value) &&
             validarTexto(apellido.value) &&
             validarEmail(email.value) &&
