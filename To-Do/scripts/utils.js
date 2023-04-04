@@ -40,3 +40,17 @@ function compararContrasenias(contra1, contra2) {
     return (contra1 === contra2);
 }
 
+function mostrarError(elemento, error) {
+    elemento.style = 'color: red; margin-bottom: 0.5rem';
+    elemento.innerText = error;
+}
+function borrarError(elemento) {
+    elemento.style = '';
+    elemento.innerText = '';
+}
+function resaltarCampo(campo) {
+    campo.classList.add('corregir');
+}
+function desresaltar(campo) {
+    campo.classList.remove('corregir');
+}

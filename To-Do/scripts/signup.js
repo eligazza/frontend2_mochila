@@ -15,34 +15,60 @@ window.addEventListener('load', function () {
     const errorPassword = this.document.querySelector("#errorPassword");
     const errorPasswordRepetida = this.document.querySelector("#errorPasswordRepetida");
 
-    function mostrarError(elemento, error) {
-        elemento.setAttribute('id', 'errores');
-        elemento.style = 'color: red; margin-bottom: 2rem';
-        elemento.innerText = error;
-    }
-
     /* -------------------------------------------------------------------------- */
     /*            FUNCIÓN 1: Escuchamos el submit y preparamos el envío           */
     /* -------------------------------------------------------------------------- */
-    form.addEventListener('submit', function (event) {
-        event.preventDefault();
-                
+    // Hago comprobaciones individuales cuando saco el foco del elemento, para que parezca en real time
+    nombre.addEventListener('blur', function() {
         if (!validarTexto(nombre.value)) {
             mostrarError(errorNombre, "Utilice solo letras");
-        }
+            resaltarCampo(nombre);
+        } else {
+            borrarError(errorNombre);
+            desresaltar(nombre);
+        };
+    })
+    apellido.addEventListener('blur', function() {
         if (!validarTexto(apellido.value)) {
             mostrarError(errorApellido, "Utilice solo letras");
-        }
+            resaltarCampo(apellido);
+        } else {
+            borrarError(errorApellido);
+            desresaltar(apellido);
+        };
+    })
+    email.addEventListener('blur', function() {
         if (!validarEmail(email.value)) {
             mostrarError(errorEmail, "No escribió un email válido");
-        }
+            resaltarCampo(email);
+        } else {
+            borrarError(errorEmail);
+            desresaltar(email);
+        };
+    })
+    contrasenia.addEventListener('blur', function() {
         if (!validarContrasenia(contrasenia.value)) {
             mostrarError(errorPassword, "Debe contener 8 caracteres, una minúscula, una mayúscula y un número");
-        }
+            resaltarCampo(contrasenia);
+        } else {
+            borrarError(errorPassword);
+            desresaltar(contrasenia)
+        };
+    })
+    contraseniaRepetida.addEventListener('blur', function() {
         if (!compararContrasenias(contrasenia.value, contraseniaRepetida.value)) {
             mostrarError(errorPasswordRepetida, "Las contraseñas no coinciden");
-        }
+            resaltarCampo(contraseniaRepetida);
+        } else {
+            borrarError(errorPasswordRepetida);
+            desresaltar(contraseniaRepetida);
+        };
+    })
+    
+    // comprobación final de todo junto antes de enviar datos al servidor
+    form.addEventListener('submit', function (event) {
         
+        event.preventDefault();     
         
         if( validarTexto(nombre.value) &&
             validarTexto(apellido.value) &&

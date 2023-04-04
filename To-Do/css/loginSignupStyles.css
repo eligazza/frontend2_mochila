@@ -71,7 +71,7 @@ form label {
 
 form input {
     border-radius: 100vh;
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
     padding: .3rem 1rem;
     border: 2px solid var(--app-grey);
 }
@@ -103,4 +103,8 @@ form button:hover{
 }
 .ingresarA a:hover{
     color: var(--azul);
+}
+
+.corregir {
+    border: 2px solid red;
 }
