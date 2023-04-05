@@ -13,6 +13,8 @@ Este proyecto es la oportunidad de repasar todo lo aprendido y poner en práctic
 ## API Docs
 Link con la documentación de los endpoints de la API y su funcionamiento:
 👉 https://todo-api.ctd.academy/#/
+👉 https://sweetalert2.github.io/v10.html#handling-buttons
+👉 https://todo-app-frontend-2.netlify.app/
     
 
 ## Requerimientos funcionales en pantalla de Login
@@ -26,9 +28,9 @@ Link con la documentación de los endpoints de la API y su funcionamiento:
 ## Requerimientos funcionales en pantalla de Tareas
 - [X] FUNCIÓN 1: Darle funcionalidad al botón de "Cerrar sesión".
 - [X] FUNCIÓN 2: Crear un función para obtener el nombre de usuario y presentarlo en pantalla.
-- [ ] FUNCIÓN 3: Implementar una función para obtener el listado de tareas.
-- [ ] FUNCIÓN 4: Lograr que funcione el botón de crear nueva tarea.
-- [ ] FUNCIÓN 5: Poder renderizar en pantalla las tareas según su estado, dentro del listado que corresponda.
+- [X] FUNCIÓN 3: Implementar una función para obtener el listado de tareas.
+- [X] FUNCIÓN 4: Lograr que funcione el botón de crear nueva tarea.
+- [X] FUNCIÓN 5: Poder renderizar en pantalla las tareas según su estado, dentro del listado que corresponda.
 - [ ] FUNCIÓN 6: Cambiar una tarea pendiente a terminada y viceversa.
 - [ ] FUNCIÓN 7: Eliminar definitivamente una tarea.
 
