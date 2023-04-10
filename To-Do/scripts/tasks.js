@@ -1,6 +1,7 @@
-// SEGURIDAD: Si no se encuentra en localStorage info del usuario
+// SEGURIDAD: Si no se encuentra en localStorage info del usuariolocalStorage.getItem
 // no lo deja acceder a la página, redirigiendo al login inmediatamente.
-  if(!localStorage.getItem("token")) {
+  const token = localStorage.getItem('token');
+  if(!token) {
     location.replace('../index.html');
   }
 
@@ -17,9 +18,12 @@ window.addEventListener('load', function () {
   const formCrearTarea = document.querySelector('.nueva-tarea');
 
   obtenerNombreUsuario();
+  console.log("Nombre de usuario consultado");
   consultarTareas();
-  botonesCambioEstado();
-  botonBorrarTarea();
+  console.log("Tareas consultadas");
+
+  // botonesCambioEstado();
+  // botonBorrarTarea();
 
   /* -------------------------------------------------------------------------- */
   /*                          FUNCIÓN 1 - Cerrar sesión                         */
@@ -56,7 +60,7 @@ window.addEventListener('load', function () {
     const carga = {
       method : "GET",
       headers : {
-        authorization : localStorage.getItem('token')
+        authorization : token
       },
     }
         
@@ -75,17 +79,15 @@ window.addEventListener('load', function () {
     const carga = {
       "method": "GET",
       "headers": {
-        "authorization": localStorage.getItem('token'),
+        "authorization": token,
       }
     }
     
     fetch(urlTareas, carga)
     .then(response => response.json())
     .then(listado => {
-      console.log("Esta es la consulta de tareas:");
-      console.table(listado);
-      // tendría que renderizar las tareas
       renderizarTareas(listado);
+      // botonesCambioEstado();
     })
     .catch(e => console.log(e))
   };
@@ -107,7 +109,7 @@ window.addEventListener('load', function () {
         "method": "POST",
         "headers": {
           "content-type": "application/json",
-          "authorization": localStorage.getItem('token'),
+          "authorization": token,
         },
         "body": JSON.stringify(objeto)
       }
@@ -133,7 +135,7 @@ window.addEventListener('load', function () {
     }
   );
 
-});
+
 
   /* -------------------------------------------------------------------------- */
   /*                  FUNCIÓN 5 - Renderizar tareas en pantalla                 */
@@ -142,7 +144,9 @@ window.addEventListener('load', function () {
     
     const listaPendientes = document.querySelector('.tareas-pendientes');
     const listaTerminados = document.querySelector('.tareas-terminadas');
-    
+    listaPendientes.innerHTML = "";
+    listaTerminados.innerHTML = "";
+
     listado.forEach(tarea => {
       
       // si la tarea está pendiente
@@ -181,43 +185,57 @@ window.addEventListener('load', function () {
         `
       }
     });
+  
   };
 
   /* -------------------------------------------------------------------------- */
   /*                  FUNCIÓN 6 - Cambiar estado de tarea [PUT]                 */
   /* -------------------------------------------------------------------------- */
+   
   function botonesCambioEstado() {
     
-    // capturo todas las tareas pendientes
-    // const tareasPendientes = document.querySelectorAll('.fa-circle');
+    // tengo que capturar todas las tareas
+    const tareas = document.querySelectorAll('.change');
 
-    // me fijo en cual hicieron click y obtengo el id
-    // tareasPendientes.addEventListener('click', function(event) {
-    //   console.log(event);
+    // a cada uno de los botones le pongo un escuchador y extraigo el ID del clickeado
+    tareas.forEach(tarea => {
       
-    //   const tareaClickeada = event.target;
-    //   const id = tareaClickeada.getAttribute('id');
-    //   console.log("La tarea clickeada tiene el id:");
-    //   console.log(id);
-      
-    //   // le cambio el estado con PUT  
-    //   const carga = {
-    //     "method": "PUT",
-    //     "headers": {
-    //       "content-type": "application/json",
-    //       "authorization": localStorage.getItem('token')
-    //     },
-    //     "body": {"completed": true}
-    //   }
-    //   fetch(`${urlTareas}${id}`,carga)
-    //   .then(response => {
-    //     console.log(response.json());
-    //     return response.json()
-    //   })
-    //   .then(consultarTareas())
-    //   .catch(error => console.log(error))
-    })
-      
+      tarea.addEventListener('click', function(event) {
+        const id = event.target.id;
+        
+        // tengo que hacer el PUT usando la información del ID para la URL
+        let estadoCambiado = true;
+        
+        if(tarea.classList.contains('incompleta')) {
+          estadoCambiado = false;
+        }
+
+        const objeto = {
+          completed : estadoCambiado,
+        }
+
+        const carga = {
+          "method": "PUT",
+          "headers": {
+            "content-type": "application/json",
+            "authorization": token,  
+          },
+          "body": JSON.stringify(objeto)
+        }
+
+        // despues de cambiar de estado, debería refrescar la lista de tareas y renderizarlas en pantalla
+        fetch(`${urlTareas}/${id}`, carga)
+        .then(res => {
+          // consultarTareas();
+          console.log("Enviando actualización de tareas")
+          return res.json();
+        })
+        .then(data => console.log(data))
+        .catch(error => console.log(error))
+
+      })
+    });
+    
   }
 
 
@@ -231,4 +249,4 @@ window.addEventListener('load', function () {
     
 
   };
-
+});

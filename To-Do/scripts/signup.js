@@ -114,7 +114,7 @@ window.addEventListener('load', function () {
             .then(info => {
                 console.log("Promesa cumplida");
                 console.log(info);
-                location.replace("./mis-tareas.html");
+                location.replace("./index.html");
             })
             .catch(error => console.log(error))
     
