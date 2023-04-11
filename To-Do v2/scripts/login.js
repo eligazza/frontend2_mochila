@@ -1,11 +1,29 @@
 window.addEventListener('load', function () {
      
-    //VARIABLES GLOBALES
+    //& en el caso de que exista el token, redirigir a la pagina de tareas
+    if(token) {
+        realizarLogin()
+    }
+
+    //^ VARIABLES GLOBALES
     
-    //COMPROBACIONES DEL LADO DEL CLIENTE
+    const inputEmail = document.querySelector('#inputEmail');
+    const inputPassword = document.querySelector('#inputPassword');
+    const formulario = document.querySelector('form');
+    const botonIngresar = document.querySelector('form button');
+
+
+    //^ COMPROBACIONES DEL LADO DEL CLIENTE
+
+    //& campo usuario, validar y agregar estilos
+    //& campo contraseña, validar y agregar estilos
+    //& habilitar el botón de submit solo cuando pasen las validaciones
+
+    //^ ENVIO DE CREDENCIALES AL SERVIDOR Y ALMACENADO DE TOKEN
     
-    //FUNCIÓN 1: Escuchamos el submit y preparamos el envío
-    
-    //FUNCIÓN 2: Realizar el login [POST]
-    
+    //& Evento SUBMIT -> FETCH (POST)
+        //& resetear el form
+        //& guardar el token
+        //& redirigir a la pagina de tareas
+        
 });
