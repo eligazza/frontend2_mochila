@@ -1,4 +1,29 @@
-//! TEXTO
+//* CONSTANTES GLOBALES
+
+const url = 'https://todo-api.ctd.academy/v1/'; 
+const token = localStorage.getItem('token');
+
+//* FUNCIONES GLOBALES
+
+function validarRecuadro(recuadro, funcionValidadora, mensaje) {
+    recuadro.addEventListener('change', () => {
+        const resultado = funcionValidadora(recuadro.value); // validamos el valor, no el recuadro
+        resultado ? marcarVerde(recuadro) : marcarRojo(recuadro);
+        resultado ? errores.innerText = '' : errores.innerText = mensaje;            
+    })
+}
+
+function marcarRojo(elemento) {
+    elemento.classList.add('recuadroRojo');  
+    elemento.classList.remove('recuadroVerde');  
+}
+
+function marcarVerde(elemento) {
+    elemento.classList.add('recuadroVerde');
+    elemento.classList.remove('recuadroRojo');
+}
+
+//^ VALIDAR TEXTO
 
 function validarTexto(texto) {
     let regex = /^[a-zA-Z]+$/;
@@ -9,7 +34,7 @@ function normalizarTexto(texto) {
     return texto.normalize();
 }
 
-//! EMAIL
+//^ VALIDAR EMAIL
 
 function validarEmail(email) {
     // ^[^\s@]+: This matches one or more characters that are not whitespace or '@' at the start of the string. The ^ symbol indicates the start of the string, and [^\s@]+ matches any character that is not whitespace or '@' one or more times. This ensures that there are no spaces at the beginning of the email address
@@ -24,7 +49,7 @@ function normalizarEmail(email) {
     return email.normalize();
 }
 
-//! CONTRASEÑAS
+//^ VALIDAR CONTRASEÑAS
 
 function validarContrasenia(contrasenia) {
     // 8 caracteres, al menos una minuscula, una mayuscula y un dígito

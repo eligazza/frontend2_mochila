@@ -1,8 +1,8 @@
 window.addEventListener('load', function () {
      
-    //& en el caso de que exista el token, redirigir a la pagina de tareas
+    // en el caso de que exista el token, redirigir a la pagina de tareas
     if(token) {
-        realizarLogin()
+        location.replace('./mis-tareas.html')
     }
 
     //^ VARIABLES GLOBALES
@@ -15,15 +15,69 @@ window.addEventListener('load', function () {
 
     //^ COMPROBACIONES DEL LADO DEL CLIENTE
 
-    //& campo usuario, validar y agregar estilos
-    //& campo contraseña, validar y agregar estilos
-    //& habilitar el botón de submit solo cuando pasen las validaciones
+    validarRecuadro(inputEmail, validarEmail, "Ingrese un email válido");
+    validarRecuadro(inputPassword, validarContrasenia, "La contraseña incluye al menos una minúscula, una mayúscula y un número");
+
+    // habilitar el boton
+    inputPassword.addEventListener('change', () => {
+        if (validarContrasenia(inputPassword.value)) {
+            botonIngresar.removeAttribute('disabled');
+        } else {
+            botonIngresar.setAttribute('disabled', 'true');
+        }
+    })
 
     //^ ENVIO DE CREDENCIALES AL SERVIDOR Y ALMACENADO DE TOKEN
     
-    //& Evento SUBMIT -> FETCH (POST)
-        //& resetear el form
-        //& guardar el token
-        //& redirigir a la pagina de tareas
+    formulario.addEventListener('submit', (event) => {
+        event.preventDefault();
+        realizarLogin();
+    })
+    
+    //& FUNCION AUXILIAR
+    
+    function realizarLogin() {
+    
+        const objeto = {
+            email: inputEmail.value,
+            password: inputPassword.value
+        }
+        
+        const carga = {
+            'method': 'POST',
+            'headers': {
+                'content-type': 'application/json' 
+            },
+            'body': JSON.stringify(objeto) 
+        }
+
+        fetch(`${url}users/login`, carga)
+        .then(res => {
+            switch (res.status) {
+                case 400:
+                alert("Contraseña incorrecta, intente de nuevo")
+                location.reload();
+                  break;
+                case 404:
+                alert("El usuario no existe")
+                location.reload();
+                  break;
+                case 500:
+                alert("Error del servidor")
+                location.reload();
+                  break;
+              }
+            console.log("La primer promesa se cumplió");
+            return res.json();
+        })
+        .then(data => {
+            console.log("La información de logueo se envió")
+            // guardamos el token en el local Storage
+            localStorage.setItem('token', JSON.stringify(data.jwt));
+            formulario.reset();
+            location.replace('./mis-tareas.html');
+        })
+        .catch(error => console.log(error))
+    }
         
 });
