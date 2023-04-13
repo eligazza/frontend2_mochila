@@ -7,15 +7,36 @@ if(!token) {
 /* ------ comienzan las funcionalidades una vez que carga el documento ------ */
 window.addEventListener('load', function () {
 
-  //FUNCIÓN 1 - Cerrar sesión
-  //FUNCIÓN 2 - Obtener nombre de usuario [GET]
-  //FUNCIÓN 3 - Obtener listado de tareas [GET]
-  //FUNCIÓN 4 - Crear nueva tarea [POST]
-  //FUNCIÓN 5 - Renderizar tareas en pantalla
-  // si la tarea está pendiente
-  // si la tarea está hecha
-  //FUNCIÓN 6 - Cambiar estado de tarea [PUT]
-  //FUNCIÓN 7 - Eliminar tarea [DELETE]
+  //^ FUNCIONALIDAD AL BOTON DE LOGOUT
+  //& preguntar si está seguro de salir
+  //& sacar el token
+  //& redirigir al login
+
+  //^ MOSTRAR INFORMACION DEL USUARIO
+  //& get  
+  //& mostrar en el HTML  
+
+  //^ OBTENER LISTA DE TAREAS
+  //& get
+  //& mostrar las tareas en el HTML dependiendo si están hechas o no.
+  
+  //^ CREAR TAREAS
+  //& post
+  //& obtener lista de tareas
+  
+  //^ BORRAR TAREAS
+  //& delete
+  //& obtener lista de tareas
+
+  //^ MARCAR TAREAS COMO HECHAS
+  //& put
+  //& obtener lista de tareas
+  
+  //^ MARCAR TAREAS COMO PENDIENTES
+  //& put
+  //& obtener lista de tareas
+  
+
 });
 
  
