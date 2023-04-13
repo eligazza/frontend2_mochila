@@ -19,10 +19,10 @@ window.addEventListener('load', function () {
     validarRecuadro(inputPassword, validarContrasenia, "La contraseña incluye al menos una minúscula, una mayúscula y un número");
 
     // habilitar el boton
-    inputPassword.addEventListener('change', () => {
+    inputPassword.addEventListener('keyup', () => {
         if (validarContrasenia(inputPassword.value)) {
             botonIngresar.removeAttribute('disabled');
-        } else {
+        } else if (!validarContrasenia(inputPassword.value)) {
             botonIngresar.setAttribute('disabled', 'true');
         }
     })

@@ -23,8 +23,11 @@ window.addEventListener('load', function () {
         const resultado = compararContrasenias(inputPassword.value, inputPasswordRepetida.value);
         resultado ? marcarVerde(inputPasswordRepetida) : marcarRojo(inputPasswordRepetida);
         resultado ? errores.innerText = '' : errores.innerText = "Las contraseñas no coinciden";
-        resultado ? botonCrearCuenta.removeAttribute('disabled') : botonCrearCuenta.setAttribute('disabled', 'true');
     })    
+    inputPasswordRepetida.addEventListener('keyup', () => {
+        (inputPasswordRepetida.value.length <= 3) ? botonCrearCuenta.setAttribute('disabled', 'true') : botonCrearCuenta.removeAttribute('disabled');
+        }
+    )    
 
     //^ ENVIO DE INFORMACION PARA REGISTRO
     formulario.addEventListener('submit', event => {
