@@ -4,17 +4,41 @@ if(!token) {
   location.replace('../index.html');
 }
 
-/* ------ comienzan las funcionalidades una vez que carga el documento ------ */
 window.addEventListener('load', function () {
 
-  //^ FUNCIONALIDAD AL BOTON DE LOGOUT
-  //& preguntar si está seguro de salir
-  //& sacar el token
-  //& redirigir al login
+  //^ CONSTANTES
+  const url = 'https://todo-api.ctd.academy/v1/'; 
+  const botonLogout = document.querySelector('#closeApp');
+  const usuario = document.querySelector('.user-info p');
 
-  //^ MOSTRAR INFORMACION DEL USUARIO
-  //& get  
-  //& mostrar en el HTML  
+  //^ BOTON DE LOGOUT
+  // preguntar si está seguro de salir
+  botonLogout.addEventListener('click', () => {
+    Swal.fire({
+      title: 'Seguro desea salir?',
+      text: "Necesitará volver a ingresar sus credenciales",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si, salir'
+    })
+    .then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire( 
+          '¡Adios!',
+          'Vuelva pronto.',
+          'success'
+        )
+        // sacar el token
+        localStorage.removeItem('token');
+        // redirigir al login
+        location.replace('./index.html');
+      }
+    })
+  })
+
+  mostrarNombre();  
 
   //^ OBTENER LISTA DE TAREAS
   //& get
@@ -36,6 +60,22 @@ window.addEventListener('load', function () {
   //& put
   //& obtener lista de tareas
   
+  //? FUNCIONES DETALLADAS
+  
+  function mostrarNombre() {
+    const carga = {
+    method: 'GET',
+    headers: {
+      authorization: JSON.parse(token)
+    }
+  }
+  fetch(`${url}users/getMe`, carga)
+  .then(res => res.json())
+  .then(info => usuario.innerText = info.firstName)
+  .catch(e => {
+    console.log(e)
+  })
+}
 
 });
 
