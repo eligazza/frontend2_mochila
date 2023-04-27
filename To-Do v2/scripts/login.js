@@ -67,17 +67,15 @@ window.addEventListener('load', function () {
                 location.reload();
                   break;
               }
-            console.log("La primer promesa se cumplió");
             return res.json();
         })
         .then(data => {
-            console.log("La información de logueo se envió")
             // guardamos el token en el local Storage
             localStorage.setItem('token', JSON.stringify(data.jwt));
             formulario.reset();
             location.replace('./mis-tareas.html');
         })
-        .catch(error => console.log(error))
+        .catch(error => alert(error))
     }
         
 });

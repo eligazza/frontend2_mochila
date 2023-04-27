@@ -74,7 +74,7 @@ window.addEventListener('load', function () {
                 location.replace('./index.html'); // redirijo al login
             })
 
-            .catch(error => console.log(error))
+            .catch(error => alert(error))
     }
 
 })
